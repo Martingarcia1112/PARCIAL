@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.11.57" id="MateriasPorCursoPageDef"
+                Package="view.pageDefs">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="MateriasView1" RangeSize="25" DataControl="CursoMateriasDataControl" id="MateriasView1Iterator"/>
+    <searchRegion Binds="MateriasView1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="MateriasView1Query"/>
+    <iterator Binds="CursosView1" RangeSize="25" DataControl="CursoMateriasDataControl" id="CursosView1Iterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="MateriasView1Iterator" id="MateriasView1">
+      <nodeDefinition DefName="model.view.MateriasView" Name="MateriasView10">
+        <AttrNames>
+          <Item Value="CursoId"/>
+          <Item Value="Nombre"/>
+          <Item Value="Duracion"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="CursosView1Iterator" id="CursosView1">
+      <nodeDefinition DefName="model.view.CursosView" Name="CursosView10">
+        <AttrNames>
+          <Item Value="Id"/>
+          <Item Value="Nombre"/>
+          <Item Value="Duracion"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action IterBinding="CursosView1Iterator" id="CreateWithParams" RequiresUpdateModel="true"
+            Action="createWithParams"/>
+  </bindings>
+</pageDefinition>

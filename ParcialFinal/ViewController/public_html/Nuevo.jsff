@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelFormLayout id="pfl1">
+    <af:inputText value="#{bindings.Id.inputValue}" label="#{bindings.Id.hints.label}"
+                  required="#{bindings.Id.hints.mandatory}" columns="#{bindings.Id.hints.displayWidth}"
+                  maximumLength="#{bindings.Id.hints.precision}" shortDesc="#{bindings.Id.hints.tooltip}" id="it1">
+      <f:validator binding="#{bindings.Id.validator}"/>
+      <af:convertNumber groupingUsed="false" pattern="#{bindings.Id.format}"/>
+    </af:inputText>
+    <af:inputText value="#{bindings.Nombre.inputValue}" label="#{bindings.Nombre.hints.label}"
+                  required="#{bindings.Nombre.hints.mandatory}" columns="#{bindings.Nombre.hints.displayWidth}"
+                  maximumLength="#{bindings.Nombre.hints.precision}" shortDesc="#{bindings.Nombre.hints.tooltip}"
+                  id="it2">
+      <f:validator binding="#{bindings.Nombre.validator}"/>
+    </af:inputText>
+    <af:inputText value="#{bindings.Duracion.inputValue}" label="#{bindings.Duracion.hints.label}"
+                  required="#{bindings.Duracion.hints.mandatory}" columns="#{bindings.Duracion.hints.displayWidth}"
+                  maximumLength="#{bindings.Duracion.hints.precision}" shortDesc="#{bindings.Duracion.hints.tooltip}"
+                  id="it3">
+      <f:validator binding="#{bindings.Duracion.validator}"/>
+      <af:convertNumber groupingUsed="false" pattern="#{bindings.Duracion.format}"/>
+    </af:inputText>
+    <f:facet name="footer">
+      <af:popup childCreation="deferred" autoCancel="disabled" id="p2ACEP">
+        <af:outputText value="ESTAS SEGURO?" id="ot2"/>
+        <af:button actionListener="#{bindings.Commit.execute}" text="SI" disabled="#{!bindings.Commit.enabled}"
+                   id="b5" action="volverNuev"/>
+        <af:button text="NO" id="b6" action="volverNuev"/>
+      </af:popup>
+      <af:popup childCreation="deferred" autoCancel="disabled" id="p1CANCEL">
+        <af:outputText value="ESTAS SEGURO?" id="ot1"/>
+        <af:button text="SI" disabled="#{!bindings.Rollback.enabled}"
+                   id="b3" actionListener="#{bindings.Rollback.execute}" immediate="true" action="volverNuev">
+          <af:resetActionListener/>
+        </af:button>
+        <af:button text="NO" id="b4" action="volverNuev"/>
+      </af:popup>
+      <af:button text="Aceptar" id="b1" actionListener="#{bindings.Commit.execute}"
+                 disabled="#{!bindings.Commit.enabled}" action="volverNuev">
+        <af:showPopupBehavior popupId="p2ACEP"/>
+      </af:button>
+      <af:button text="Cancelar" id="b2"
+                 disabled="#{!bindings.Rollback.enabled}" partialSubmit="true"
+                 actionListener="#{bindings.Rollback.execute}" immediate="true" action="volverNuev">
+        <af:resetActionListener/>
+        <af:showPopupBehavior popupId="p1CANCEL"/>
+      </af:button>
+    </f:facet>
+  </af:panelFormLayout>
+</ui:composition>

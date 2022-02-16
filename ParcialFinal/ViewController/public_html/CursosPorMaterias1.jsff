@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelSplitter id="ps1" splitterPosition="350">
+    <f:facet name="first">
+      <af:panelFormLayout id="pfl1">
+        <af:inputText value="#{bindings.Id.inputValue}" label="#{bindings.Id.hints.label}"
+                      required="#{bindings.Id.hints.mandatory}" readOnly="true"
+                      columns="#{bindings.Id.hints.displayWidth}" maximumLength="#{bindings.Id.hints.precision}"
+                      shortDesc="#{bindings.Id.hints.tooltip}" id="it1">
+          <f:validator binding="#{bindings.Id.validator}"/>
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.Id.format}"/>
+        </af:inputText>
+        <af:inputText value="#{bindings.Nombre.inputValue}" label="#{bindings.Nombre.hints.label}"
+                      required="#{bindings.Nombre.hints.mandatory}" readOnly="true"
+                      columns="#{bindings.Nombre.hints.displayWidth}" maximumLength="#{bindings.Nombre.hints.precision}"
+                      shortDesc="#{bindings.Nombre.hints.tooltip}" id="it2">
+          <f:validator binding="#{bindings.Nombre.validator}"/>
+        </af:inputText>
+        <af:inputText value="#{bindings.Duracion.inputValue}" label="#{bindings.Duracion.hints.label}"
+                      required="#{bindings.Duracion.hints.mandatory}" readOnly="true"
+                      columns="#{bindings.Duracion.hints.displayWidth}"
+                      maximumLength="#{bindings.Duracion.hints.precision}"
+                      shortDesc="#{bindings.Duracion.hints.tooltip}" id="it3">
+          <f:validator binding="#{bindings.Duracion.validator}"/>
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.Duracion.format}"/>
+        </af:inputText>
+        <af:popup childCreation="deferred" autoCancel="disabled" id="p1">
+          <af:outputText value="ESTAS SEGURO?" id="ot1"/>
+          <af:button actionListener="#{bindings.Delete.execute}" text="SI" disabled="#{!bindings.Delete.enabled}"
+                     id="b4"/>
+          <af:button actionListener="#{bindings.Rollback.execute}" text="NO" disabled="#{!bindings.Rollback.enabled}"
+                     immediate="true" id="b5">
+            <af:resetActionListener/>
+          </af:button>
+        </af:popup>
+        <f:facet name="footer">
+          <af:panelGroupLayout layout="vertical" id="pgl2">
+            <af:panelGroupLayout layout="horizontal" id="pgl1">
+              <af:button actionListener="#{bindings.First.execute}" text="First" disabled="#{!bindings.First.enabled}"
+                         partialSubmit="true" id="b8"/>
+              <af:button actionListener="#{bindings.Previous.execute}" text="Previous"
+                         disabled="#{!bindings.Previous.enabled}" partialSubmit="true" id="b9"/>
+              <af:button actionListener="#{bindings.Next.execute}" text="Next" disabled="#{!bindings.Next.enabled}"
+                         partialSubmit="true" id="b7"/>
+              <af:button actionListener="#{bindings.Last.execute}" text="Last" disabled="#{!bindings.Last.enabled}"
+                         partialSubmit="true" id="b10"/>
+            </af:panelGroupLayout>
+            <af:button actionListener="#{bindings.CreateWithParams.execute}" text="Nuevo"
+                       disabled="#{!bindings.CreateWithParams.enabled}" id="b1" action="Nuevo1"/>
+            <af:button text="Modificar" id="b6" action="Modificar1"/>
+            <af:button text="Delete" id="b3" disabled="#{!bindings.Delete.enabled}"
+                       actionListener="#{bindings.Delete.execute}">
+              <af:showPopupBehavior popupId="p1"/>
+            </af:button>
+          </af:panelGroupLayout>
+        </f:facet>
+      </af:panelFormLayout>
+    </f:facet>
+    <f:facet name="second">
+      <af:table value="#{bindings.MateriasView1.collectionModel}" var="row" rows="#{bindings.MateriasView1.rangeSize}"
+                emptyText="#{bindings.MateriasView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                rowBandingInterval="0" selectedRowKeys="#{bindings.MateriasView1.collectionModel.selectedRow}"
+                selectionListener="#{bindings.MateriasView1.collectionModel.makeCurrent}" rowSelection="single"
+                fetchSize="#{bindings.MateriasView1.rangeSize}" id="t2">
+        <af:column headerText="#{bindings.MateriasView1.hints.Id.label}" id="c4">
+          <af:outputText value="#{row.Id}" shortDesc="#{bindings.MateriasView1.hints.Id.tooltip}" id="ot4">
+            <af:convertNumber groupingUsed="false" pattern="#{bindings.MateriasView1.hints.Id.format}"/>
+          </af:outputText>
+        </af:column>
+        <af:column headerText="#{bindings.MateriasView1.hints.Nombre.label}" id="c5">
+          <af:outputText value="#{row.Nombre}" shortDesc="#{bindings.MateriasView1.hints.Nombre.tooltip}" id="ot5"/>
+        </af:column>
+        <af:column headerText="#{bindings.MateriasView1.hints.Duracion.label}" id="c6">
+          <af:outputText value="#{row.Duracion}" shortDesc="#{bindings.MateriasView1.hints.Duracion.tooltip}" id="ot6">
+            <af:convertNumber groupingUsed="false" pattern="#{bindings.MateriasView1.hints.Duracion.format}"/>
+          </af:outputText>
+        </af:column>
+        <af:column headerText="#{bindings.MateriasView1.hints.CursoId.label}" id="c7">
+          <af:selectOneChoice value="#{row.bindings.CursoId.inputValue}" label="#{row.bindings.CursoId.label}"
+                              required="#{bindings.MateriasView1.hints.CursoId.mandatory}"
+                              shortDesc="#{bindings.MateriasView1.hints.CursoId.tooltip}" readOnly="true" id="soc1">
+            <f:selectItems value="#{row.bindings.CursoId.items}" id="si1"/>
+            <f:validator binding="#{row.bindings.CursoId.validator}"/>
+          </af:selectOneChoice>
+        </af:column>
+      </af:table>
+    </f:facet>
+  </af:panelSplitter>
+</ui:composition>

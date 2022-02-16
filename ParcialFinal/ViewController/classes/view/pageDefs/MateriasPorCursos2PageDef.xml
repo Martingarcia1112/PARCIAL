@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.11.57" id="MateriasPorCursos2PageDef"
+                Package="view.pageDefs">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="MateriasView2" RangeSize="25" DataControl="CursoMateriasDataControl" id="MateriasView2Iterator"/>
+    <searchRegion Criteria="MateriasPorCursoViewCriteria"
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" Binds="MateriasView2Iterator"
+                  id="MateriasPorCursoViewCriteriaQuery"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="MateriasView2Iterator" id="MateriasView2">
+      <nodeDefinition DefName="model.view.MateriasView" Name="MateriasView20">
+        <AttrNames>
+          <Item Value="CursoId"/>
+          <Item Value="Nombre"/>
+          <Item Value="Duracion"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>
